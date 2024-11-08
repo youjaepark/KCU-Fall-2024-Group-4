@@ -1,0 +1,10 @@
+Flask==2.0.2
+requests==2.26.0
+beautifulsoup4==4.9.3
+
+#ai rating
+openai ==1.52.0
+pymongo ==4.10.1
+python-dotenv ==1.0.1
+scikit-learn ==1.5.2
+certifi ==2024.8.30
