@@ -4,45 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RateMySchedule</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif; /* Fixed font-family to avoid confusion */
-            padding: 10px;
-            margin: 0; /* Remove default margin for body */
-        }
-        .header {
-            background-color: #C0392B; /* Red background color */
-            color: white; /* White text color for contrast */
-            padding: 5px; /* Padding for the header */
-            text-align: left; /* Align text to the left */
-            position: sticky; /* Sticky header */
-            top: 0; /* Stick to the top of the viewport */
-            z-index: 1000; /* Ensure it stays above other content */
-            display: flex; /* Use flexbox for layout */
-            align-items: center; /* Vertically center items */
-        }
-        h1 {
-            font-size: 2.2em; /* Increased font size for a larger title */
-            font-weight: bolder; /* Made the title even bolder */
-            margin: 0; /* Remove margin for better alignment */
-            margin-left: 15px; /* Add space between icon and title */
-        }
-        p {
-            font-size: 1em;
-            color: #555;
-        }
-        a {
-            color: #007BFF;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        .icon {
-            width: 70px; /* Adjust icon size as needed */
-            height: auto; /* Maintain aspect ratio */
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="header">
@@ -50,18 +12,39 @@
         <h1>Rate My Schedule</h1>
     </div>
 
-    <p>Rate your schedule based on the ratings of professors and past grades that students got!</p>
-    
-    <h2>Useful Links</h2>
-    <ul>
-        <li><a href="https://www.ratemyprofessors.com/" target="_blank">RateMyProfessors</a></li>
-        <li><a href="https://madgrades.com/" target="_blank">Madgrades</a></li>
-    </ul>
+    <div class="content">
+        <!--Upper Section-->
+        <div class="resulting-score">
+            <div class="score-circle-container">
+                <div class="score-circle">
+                    <span id="totalScore">84/100</span>
+                </div>
+            </div>
+            <div class="scores">
+                <p><span class="bold-label">Course Score:</span> <span id="courseScore">78</span></p>
+                <p><span class="bold-label">Instructor Score:</span> <span id="instructorScore">89</span></p>
+                <p><span class="bold-label">Schedule Balance:</span> <span id="scheduleBalance">81</span></p>
+            </div>
+            <p>AI Generated 어쩌고 저쩌고</p>
+        </div>
 
-    <h3>Cart Items</h3>
-    <div id="courseList">
-        <p>Loading courses...</p>
-      </div>
-<script src="popup.js"></script>
+        <!--Bottom Section-->
+        <div class="statistics" id="courseStats">
+            <div class="table-container">
+                <table>
+                    <thread>
+                        <tr>
+                            <th>Course Name</th>
+                            <th>Madgrades</th>
+                            <th>Rate My Professor</th>
+                        </tr>
+                    </thread>
+                    <tbody id="courseTableBody">
+                        <!--Rows to be added..-->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
