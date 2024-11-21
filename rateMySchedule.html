@@ -8,37 +8,43 @@
 </head>
 <body>
     <div class="header">
-        <img src="./icons/icon.png" alt="Rate My Schedule Icon" class="icon"> <!-- Icon on the left -->
+        <img src="icon.png" alt="Rate My Schedule Icon" class="icon">
         <h1>Rate My Schedule</h1>
     </div>
-
     <div class="content">
         <!--Upper Section-->
-        <div class="resulting-score">
-            <div class="score-circle-container">
-                <div class="score-circle">
-                    <span id="totalScore">84/100</span>
+        <div class="score-result">
+            <div class="score-circle">
+                <div class="percent">
+                    <svg>
+                        <circle cx="70" cy="70" r="70"></circle>
+                        <circle cx="70" cy="70" r="70"></circle>
+                    </svg>
+                    <div class="number">
+                        <h2><span id="scorePercent"></span><span id="percentSign">%</span></h2>
+                    </div>
                 </div>
+                <h2 class="scorePercentageText">Score Percentage</h2>
             </div>
             <div class="scores">
-                <p><span class="bold-label">Course Score:</span> <span id="courseScore">78</span></p>
-                <p><span class="bold-label">Instructor Score:</span> <span id="instructorScore">89</span></p>
-                <p><span class="bold-label">Schedule Balance:</span> <span id="scheduleBalance">81</span></p>
+                <p><span class="bold-label">Course Score:</span> <span id="courseScore"></span></p>
+                <p><span class="bold-label">Instructor Score:</span> <span id="instructorScore"></span></p>
+                <p><span class="bold-label">Schedule Balance:</span> <span id="scheduleBalance"></span></p>
             </div>
-            <p>AI Generated 어쩌고 저쩌고</p>
+            <p id="comment"><span class="bold-label">Comment:</span> <span id=commentParagraph>AI Generated Comment..</span></p>
         </div>
 
         <!--Bottom Section-->
         <div class="statistics" id="courseStats">
             <div class="table-container">
                 <table>
-                    <thread>
+                    <thead>
                         <tr>
                             <th>Course Name</th>
-                            <th>Madgrades</th>
-                            <th>Rate My Professor</th>
+                            <th>Cumulative GPA</th>
+                            <th>RMF Professor Rating</th>
                         </tr>
-                    </thread>
+                    </thead>
                     <tbody id="courseTableBody">
                         <!--Rows to be added..-->
                     </tbody>
@@ -46,5 +52,7 @@
             </div>
         </div>
     </div>
+    <script src="popup.js">
+    </script>
 </body>
 </html>
