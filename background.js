@@ -1,20 +1,22 @@
-  chrome.action.onClicked.addListener((tab) => {
-    chrome.scripting.executeScript({
-      target: { tabId: tab.id },
-      files: ['content.js']
+const GOOGLE_ORIGIN = 'https://enroll.wisc.edu';
+
+chrome.sidePanel
+  .setPanelBehavior({ openPanelOnActionClick: true })
+  .catch((error) => console.error(error));
+
+chrome.tabs.onUpdated.addListener(async (tabId, info, tab) => {
+  if (!tab.url) return;
+  const url = new URL(tab.url);
+  if (url.href.startsWith(GOOGLE_ORIGIN)) {
+    await chrome.sidePanel.setOptions({
+      tabId,
+      path: 'rateMySchedule.html',
+      enabled: true
     });
-  });
-  
-  chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    
-    if (message.action === 'openSidePanel') {
-      // Code to open the side panel
-      chrome.sidePanel.setOptions({
-        path: 'rateMySchedule.html', // Specify the path to your side panel content
-        enabled: true // Make sure the side panel is enabled
-      });
-  
-      // Optionally, you can send a response back to the content script if needed
-      sendResponse({ status: 'success', message: 'Side panel opened' });
-    }
-  });
+  } else {
+    await chrome.sidePanel.setOptions({
+      tabId,
+      enabled: false
+    });
+  }
+});
