@@ -1,9 +1,79 @@
-
-
 // Wait until the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', function () {
     getCourseData(); // Function to fetch and display course data
+    // Sample course data (to be replaced w/ backend)
+    const tableContent = [
+      {
+          courseName: "STAT 309",
+          madgrades: "3.22",
+          rateMyProfessor: "1.9/5",
+      },
+      {
+          courseName: "COMP SCI 400",
+          madgrades: "3.32",
+          rateMyProfessor: "3.5/5",
+      },
+      {
+          courseName: "COMP SCI 354",
+          madgrades: "3.10",
+          rateMyProfessor: "4.2/5",
+      },
+      {
+        courseName: "STAT 424",
+        madgrades: "3.43",
+        rateMyProfessor: "3.2/5",
+      }
+  ];
+
+    updateScores(78, 85, 91, 90);
+    fillTable(tableContent);
   });
+
+  function updateScores(newScorePercent, newCourseScore, newInstructorScore, newScheduleBalance) {
+    const scorePercentVal = document.getElementById("scorePercent");
+    const courseScoreVal = document.getElementById("courseScore");
+    const instructorScoreVal = document.getElementById("instructorScore");
+    const scheduleBalanceVal = document.getElementById("scheduleBalance");
+
+    scorePercentVal.innerHTML = "";
+    courseScoreVal.innerHTML = "";
+    instructorScoreVal.innerHTML = "";
+    scheduleBalanceVal.innerHTML = "";
+
+    scorePercentVal.textContent = newScorePercent;
+    courseScoreVal.textContent = newCourseScore;
+    instructorScoreVal.textContent = newInstructorScore;
+    scheduleBalanceVal.textContent = newScheduleBalance;
+
+    const circle = document.querySelector(".percent svg circle:nth-child(2)");
+    const newDashOffset = 440 - (440 * newScorePercent) / 100;
+
+    circle.style.strokeDashoffset = newDashOffset;
+  }
+
+  function fillTable(tableContent) {
+    const tableBody = document.getElementById("courseTableBody");
+    tableBody.innerHTML = "";
+
+    tableContent.forEach((course) => {
+        const row = document.createElement("tr");
+
+        const courseNameCell = document.createElement("td");
+        courseNameCell.textContent = course.courseName;
+
+        const madgradesCell = document.createElement("td");
+        madgradesCell.textContent = course.madgrades;
+
+        const rmfCell = document.createElement("td");
+        rmfCell.textContent = course.rateMyProfessor;
+
+        row.appendChild(courseNameCell);
+        row.appendChild(madgradesCell);
+        row.appendChild(rmfCell);
+
+        tableBody.appendChild(row);
+    });
+  }
   
   // Function to retrieve course data
   async function getCourseData() {
@@ -57,4 +127,3 @@ document.addEventListener('DOMContentLoaded', function () {
   
     return courses;
   }
-  
