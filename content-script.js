@@ -1,14 +1,12 @@
 // Select the button on the page by its class name or other attributes
 const buttonGenerateSchedules = document.querySelector('.generate-schedules-btn');
+const arrowButton = document.querySelector('.mat-mdc-button-ripple');
 
 // Log to see if the button is correctly found
 if (buttonGenerateSchedules) {
-  console.log('Button found! Adding click event listener...');
   buttonGenerateSchedules.addEventListener('click', () => {
-    console.log('Button clicked!'); // Log when the button is clicked
-
     // Send the message to background or service worker
-    chrome.runtime.sendMessage({ action: 'openSidePanel' }, (response) => {
+    chrome.runtime.sendMessage({ action: 'openSidePanel', openPanelOnActionClick: true }, (response) => {
       if (chrome.runtime.lastError) {
         console.error('Error sending message:', chrome.runtime.lastError);
       } else {
@@ -19,6 +17,18 @@ if (buttonGenerateSchedules) {
 } else {
   console.log('Button not found!'); // Log if the button is not found
 }
+
+if (arrowButton) {
+  buttonGenerateSchedules.addEventListener('click', () => {
+    chrome.runtime.sendMessage({ action: 'openSidePanel', openPanelOnActionClick: true }, (response) => {
+      if (chrome.runtime.lastError) {
+        console.error('Error sending message:', chrome.runtime.lastError);
+      } else {
+        console.log('Response from background:', response); // Log the response from the background
+      }
+    });
+  });
+  }
 
 
 // This will execute in the context of the page

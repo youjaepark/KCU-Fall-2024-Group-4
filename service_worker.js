@@ -5,32 +5,34 @@ chrome.sidePanel
   .setPanelBehavior({ openPanelOnActionClick: true })
   .catch((error) => console.error(error));
 
-chrome.tabs.onUpdated.addListener(async (tabId, info, tab) => {
-  if (!tab.url) return;
-  const url = new URL(tab.url);
-  
-  // Enables the side panel on https://enroll.wisc.edu
-  if (url.href.startsWith(GOOGLE_ORIGIN)) {
-    await chrome.sidePanel.setOptions({
-      tabId,
-      path: 'rateMySchedule.html',  // Path to your side panel HTML
-      enabled: true
-    });
-  } else {
-    // Disables the side panel on all other sites
-    await chrome.sidePanel.setOptions({
-      tabId,
-      enabled: false
-    });
-  }
-});
+  chrome.tabs.onUpdated.addListener(async (tabId, info, tab) => {
+    if (!tab.url) return;
+    const url = new URL(tab.url);
+    // Enables the side panel on google.com
+    if (url.origin === GOOGLE_ORIGIN) {
+      await chrome.sidePanel.setOptions({
+        tabId,
+        path:'rateMySchedule.html',
+        enabled: true
+      });
+    } else {
+      // Disables the side panel on all other sites
+      await chrome.sidePanel.setOptions({
+        tabId,
+        enabled: false
+      });
+    }
+  });
+
+
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   console.log("Received message:", message);
-
+  const currentTab = sender.tab;
   if (message.action === 'openSidePanel') {
     console.log('Attempting to open the side panel...');
-    
+    chrome.sidePanel.open({tabId: currentTab.id});
+
     if (chrome.sidePanel) {
       console.log("Side Panel API is available.");
       
@@ -74,7 +76,7 @@ async function getCourseData(tabId) {
 }
 
 // Extract course data from the page
-function extractCourseData() {
+function extractCourseData() {   
   const courses = [];
   
   // Modify the selector based on the structure of the website you're scraping
