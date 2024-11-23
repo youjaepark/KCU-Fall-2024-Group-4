@@ -94,16 +94,24 @@ def analyze_schedule(schedule_json):
        - Meal break opportunities
        - Study time blocks
 
-    Output Format (JSON only):
-    {
-        "course": float,        // Course difficulty rating
-        "instructor": float,    // Instructor quality rating
-        "schedule_balance": float,  // Schedule organization rating
-        "overall": float,       // Weighted average (35/35/30 split)
-        "comment": string       // 2-3 sentences: strengths, concerns, suggestions
-    }
+    4. Please provide only the JSON output without any additional text, using the following format:
+    {{
+        "course": float,
+        "instructor": float,
+        "schedule balance": float,
+        "overall": float,
+        "comment": string
+    }}
+
+    Example Output:
+    {{
+        "course": 7.5,
+        "instructor": 8.0,
+        "schedule balance": 6.5,
+        "overall": 7.3,
+        "comment": "The schedule offers a balanced workload with highly rated instructors..."
+    }}
     """
-    
     client = openai.OpenAI()
     response = client.chat.completions.create(
         model="gpt-4o-mini",
