@@ -1,6 +1,9 @@
 // Wait until the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', async function () {
     try {
+      const loadingScreen = document.getElementById("loadingScreen");
+      const mainContent = document.getElementById("mainContent");
+
       getCourseData(); // Function to fetch and display course data
 
       const receivedTableData = {
@@ -43,6 +46,10 @@ document.addEventListener('DOMContentLoaded', async function () {
           },
         },
       };
+
+      loadingScreen.style.display = "flex";
+      mainContent.style.display = "none";
+      console.log("Loading screen...");
   
       console.log("Fetching API data...");
       await fetchScoreAPI();
@@ -52,6 +59,10 @@ document.addEventListener('DOMContentLoaded', async function () {
 
       fillTable(tableContent);
       console.log("Table filled successfully");
+
+      loadingScreen.style.display = "none";
+      mainContent.style.display = "block";
+      console.log("Data loaded successfully!");
   
     } catch(error) {
       console.error("Error during initialization:", error);
