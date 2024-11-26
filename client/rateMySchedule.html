@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RateMySchedule</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      .hidden {
+        display: none;
+      }
+
+      .loading-screen {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        width: 100%;
+        background-color: #f4f4f4;
+        text-align: center;
+      }
+
+      .loading-spinner {
+        width: 50px;
+        height: 50px;
+        border: 5px solid #ddd;
+        border-top: 5px solid #c0392b;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .loading-message {
+        margin-top: 20px;
+        font-size: 1.2em;
+        color: #555;
+      }
+    </style>
+  </head>
+  <body>
+    <!--Loading Screen-->
+    <div id="loadingScreen" class="loading-screen">
+      <div class="loading-spinner"></div>
+      <p class="loading-message">Loading, please wait...</p>
+    </div>
+
+    <div id="mainContent" class="hidden">
+      <div class="header">
+        <img src="icon.png" alt="Rate My Schedule Icon" class="icon" />
+        <h1>Rate My Schedule</h1>
+      </div>
+
+      <div class="content">
+        <!--Upper Section-->
+        <div class="score-result">
+          <div class="score-circle">
+            <div class="percent">
+              <svg>
+                <circle cx="70" cy="70" r="70"></circle>
+                <circle cx="70" cy="70" r="70"></circle>
+              </svg>
+              <div class="number">
+                <h2>
+                  <span id="scorePercent"></span><span id="percentSign">%</span>
+                </h2>
+              </div>
+            </div>
+            <h2 class="scorePercentageText">Score Percentage</h2>
+          </div>
+          <div class="scores">
+            <p>
+              <span class="bold-label">Course Score:</span>
+              <span id="courseScore"></span>
+            </p>
+            <p>
+              <span class="bold-label">Instructor Score:</span>
+              <span id="instructorScore"></span>
+            </p>
+            <p>
+              <span class="bold-label">Schedule Balance:</span>
+              <span id="scheduleBalance"></span>
+            </p>
+          </div>
+          <p id="comment">
+            <span class="bold-label">Comment:</span>
+            <span id="commentParagraph">No comment available.</span>
+          </p>
+        </div>
+
+        <!--Bottom Section-->
+        <div class="statistics" id="courseStats">
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Course Name</th>
+                  <th>Cumulative GPA</th>
+                  <th>Professor Rating</th>
+                </tr>
+              </thead>
+              <tbody id="courseTableBody">
+                <!--Rows to be added..-->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="content.js" defer></script>
+  </body>
+</html>
