@@ -1,0 +1,103 @@
+{"department": "Accounting", "professor_count": 50, "department_num": 1}
+{"department": "African Studies", "professorCount": 24, "departmentNum": 224}
+{"department": "African-American Studies", "professorCount": 3, "departmentNum": 240}
+{"department": "Agricultural Economics", "professorCount": 10, "departmentNum": 1527}
+{"department": "Agriculture", "professorCount": 41, "departmentNum": 2}
+{"department": "Anatomy", "professorCount": 3, "departmentNum": 678}
+{"department": "Anthropology", "professorCount": 52, "departmentNum": 3}
+{"department": "Architecture", "professorCount": 7, "departmentNum": 4}
+{"department": "Art", "professorCount": 40, "departmentNum": 113}
+{"department": "Art & Art History", "professorCount": 41, "departmentNum": 1661}
+{"department": "Art History", "professorCount": 7, "departmentNum": 5}
+{"department": "Asian Studies", "professorCount": 14, "departmentNum": 177}
+{"department": "Astronomy", "professorCount": 8, "departmentNum": 79}
+{"department": "Atmospheric Sciences", "professorCount": 1, "departmentNum": 1421}
+{"department": "Biology", "professorCount": 159, "departmentNum": 6}
+{"department": "Biomedical Engineering", "professorCount": 7, "departmentNum": 1230}
+{"department": "Business", "professorCount": 128, "departmentNum": 7}
+{"department": "Cell & Regenerative Biology", "professorCount": 3, "departmentNum": 2349}
+{"department": "Chemistry", "professorCount": 174, "departmentNum": 8}
+{"department": "Classics", "professorCount": 26, "departmentNum": 9}
+{"department": "Communication", "professorCount": 140, "departmentNum": 10}
+{"department": "Communication Disorders", "professorCount": 16, "departmentNum": 307}
+{"department": "Communication Sciences & Disorders", "professorCount": 8, "departmentNum": 2654}
+{"department": "Computer Engineering", "professorCount": 3, "departmentNum": 95}
+{"department": "Computer Science", "professorCount": 148, "departmentNum": 11}
+{"department": "Consumer Science", "professorCount": 25, "departmentNum": 1107}
+{"department": "Criminal Justice", "professorCount": 4, "departmentNum": 12}
+{"department": "Culinary Arts", "professorCount": 1, "departmentNum": 13}
+{"department": "Cultural Studies", "professorCount": 1, "departmentNum": 346}
+{"department": "Design", "professorCount": 12, "departmentNum": 14}
+{"department": "Dietetics", "professorCount": 1, "departmentNum": 104}
+{"department": "East Asian Lang. & Literature", "professorCount": 10, "departmentNum": 1220}
+{"department": "East Asian Studies", "professorCount": 4, "departmentNum": 349}
+{"department": "Economics", "professorCount": 113, "departmentNum": 15}
+{"department": "Education", "professorCount": 99, "departmentNum": 16}
+{"department": "Educational Psychology", "professorCount": 31, "departmentNum": 589}
+{"department": "Electrical & Computer Engineering", "professorCount": 9, "departmentNum": 2642}
+{"department": "Engineering", "professorCount": 324, "departmentNum": 17}
+{"department": "English", "professorCount": 245, "departmentNum": 18}
+{"department": "English As A Second Language", "professorCount": 1, "departmentNum": 1406}
+{"department": "Entomology", "professorCount": 6, "departmentNum": 105}
+{"department": "Environmental Studies", "professorCount": 25, "departmentNum": 1422}
+{"department": "Ethnic Studies", "professorCount": 39, "departmentNum": 19}
+{"department": "Film", "professorCount": 11, "departmentNum": 20}
+{"department": "Finance", "professorCount": 30, "departmentNum": 21}
+{"department": "Fine Arts", "professorCount": 23, "departmentNum": 22}
+{"department": "Genetics", "professorCount": 22, "departmentNum": 114}
+{"department": "Geography", "professorCount": 44, "departmentNum": 23}
+{"department": "Geology", "professorCount": 36, "departmentNum": 24}
+{"department": "German, Nordic & Slavic", "professorCount": 6, "departmentNum": 3079}
+{"department": "Health Science", "professorCount": 15, "departmentNum": 26}
+{"department": "History", "professorCount": 161, "departmentNum": 27}
+{"department": "History & Asian American Studies", "professorCount": 1, "departmentNum": 2432}
+{"department": "Horticulture", "professorCount": 5, "departmentNum": 119}
+{"department": "Human Development", "professorCount": 18, "departmentNum": 999}
+{"department": "Humanities", "professorCount": 30, "departmentNum": 29}
+{"department": "Hydrogeology", "professorCount": 1, "departmentNum": 575}
+{"department": "Information Science", "professorCount": 25, "departmentNum": 30}
+{"department": "International Studies", "professorCount": 14, "departmentNum": 135}
+{"department": "Journalism", "professorCount": 52, "departmentNum": 32}
+{"department": "Kinesiology", "professorCount": 25, "departmentNum": 333}
+{"department": "Languages", "professorCount": 304, "departmentNum": 33}
+{"department": "Law", "professorCount": 24, "departmentNum": 34}
+{"department": "Linguistics", "professorCount": 4, "departmentNum": 129}
+{"department": "Literature", "professorCount": 44, "departmentNum": 35}
+{"department": "Management", "professorCount": 24, "departmentNum": 36}
+{"department": "Marketing", "professorCount": 31, "departmentNum": 37}
+{"department": "Mathematics", "professorCount": 382, "departmentNum": 38}
+{"department": "Mechanical Engineering", "professorCount": 8, "departmentNum": 69}
+{"department": "Medicine", "professorCount": 30, "departmentNum": 39}
+{"department": "Microbiology", "professorCount": 4, "departmentNum": 134}
+{"department": "Military Science", "professorCount": 3, "departmentNum": 103}
+{"department": "Music", "professorCount": 77, "departmentNum": 40}
+{"department": "Neuroscience", "professorCount": 3, "departmentNum": 1302}
+{"department": "Nursing", "professorCount": 23, "departmentNum": 41}
+{"department": "Nutrition", "professorCount": 7, "departmentNum": 351}
+{"department": "Oncology", "professorCount": 3, "departmentNum": 1362}
+{"department": "Pharmacy", "professorCount": 12, "departmentNum": 83}
+{"department": "Philosophy", "professorCount": 93, "departmentNum": 42}
+{"department": "Physical Education", "professorCount": 6, "departmentNum": 43}
+{"department": "Physics", "professorCount": 104, "departmentNum": 44}
+{"department": "Physiology", "professorCount": 1, "departmentNum": 772}
+{"department": "Political Science", "professorCount": 100, "departmentNum": 45}
+{"department": "Psychology", "professorCount": 125, "departmentNum": 46}
+{"department": "Public Affairs", "professorCount": 6, "departmentNum": 1019}
+{"department": "Rehabilitation Psychology", "professorCount": 11, "departmentNum": 2394}
+{"department": "Religion", "professorCount": 19, "departmentNum": 47}
+{"department": "Scandinavian", "professorCount": 1, "departmentNum": 1022}
+{"department": "Science", "professorCount": 108, "departmentNum": 48}
+{"department": "Science Education", "professorCount": 1, "departmentNum": 604}
+{"department": "Social Science", "professorCount": 18, "departmentNum": 49}
+{"department": "Social Work", "professorCount": 52, "departmentNum": 50}
+{"department": "Sociology", "professorCount": 138, "departmentNum": 51}
+{"department": "Spanish & Portuguese", "professorCount": 63, "departmentNum": 1675}
+{"department": "Statistics", "professorCount": 72, "departmentNum": 140}
+{"department": "TA", "professorCount": 14, "departmentNum": 533}
+{"department": "Theater", "professorCount": 35, "departmentNum": 52}
+{"department": "Theology", "professorCount": 1, "departmentNum": 144}
+{"department": "Veterinary Sciences", "professorCount": 3, "departmentNum": 145}
+{"department": "Women", "professorCount": 1, "departmentNum": 2845}
+{"department": "Women's Studies", "professorCount": 29, "departmentNum": 53}
+{"department": "Writing", "professorCount": 2, "departmentNum": 54}
+{"department": "Zoology", "professorCount": 18, "departmentNum": 147}
