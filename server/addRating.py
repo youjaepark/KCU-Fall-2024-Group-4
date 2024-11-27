@@ -2,92 +2,6 @@ import json
 import firebase_admin
 from firebase_admin import credentials, firestore
 from google.cloud.firestore import FieldFilter
-#Example function input:
-schedule = {
- "schedule": {
-   "1": {
-     "course": {
-       "name": "INTER-LS 145",
-       "credit": "1.00",
-       "description": "How to Succeed in College"
-     },
-     "time": {
-       "LEC": "Online"
-     },
-     "instructor": {
-       "name": "Leonora Neville"
-     }
-   },
-   "2": {
-     "course": {
-       "name": "ED POL 140",
-       "credit": "3.00",
-       "description": "Introduction to Education"
-     },
-     "time": {
-       "LEC": "MW 11:00 AM–11:50 AM",
-       "DIS": "F 9:55 AM–10:45 AM"
-     },
-     "instructor": {
-       "name": "Emily MILLER"
-     }
-   },
-   "3": {
-     "course": {
-       "name": "ENGL 100",
-       "credit": "3.00",
-       "description": "Introduction to College Composition"
-     },
-     "time": {
-       "LEC": "MW 2:30 PM–3:45 PM"
-     },
-     "instructor": {
-       "name": "Vatcharit Chantajinda"
-     }
-   },
-   "4": {
-     "course": {
-       "name": "ANTHRO 104",
-       "credit": "3.00",
-       "description": "Cultural Anthropology and Human Diversity"
-     },
-     "time": {
-       "LEC": "TR 11:00 AM–11:50 AM",
-       "DIS": "R 12:05 PM–12:55 PM"
-     },
-     "instructor": {
-       "name": "Claire WENDLAND"
-     }
-   },
-   "5": {
-     "course": {
-       "name": "MATH 375",
-       "credit": "5.00",
-       "description": "Topics in Multi-Variable Calculus and Linear Algebra",
-     },
-     "time": {
-       "LEC": "TR 9:30 AM–10:45 AM",
-       "DIS": "MW 12:05 PM–12:55 PM"
-     },
-     "instructor": {
-       "name": "Caglar Uyanik"
-     }
-   },
-   "6": {
-     "course": {
-       "name": "COMP SCI 300",
-       "credit": "3.00",
-       "description": "Programming II"
-     },
-     "time": {
-       "LEC": "MWF 1:20 PM–2:10 PM"
-     },
-     "instructor": {
-       "name": "Hobbes Legault"
-     }
-   }
- }
-}
 
 def format_input(course_name, instructor_name):
     # Format course name
@@ -114,7 +28,7 @@ def format_input(course_name, instructor_name):
 
 def add_rating(schedule_json):
     if not firebase_admin._apps:
-        cred = credentials.Certificate("server/ratemyschedule-c9fab-firebase-adminsdk-v1sj7-2fcb3a43cf.json")
+        cred = credentials.Certificate("ratemyschedule-c9fab-firebase-adminsdk-v1sj7-2fcb3a43cf.json")
         firebase_admin.initialize_app(cred)
     db = firestore.client()
     
@@ -150,7 +64,7 @@ def add_rating(schedule_json):
                     course_data['course']['url'] = "N/A"
           
             # Query Firestore for professor data if instructor name is not "No instructors"
-            if instructor_name != "No instructors":
+            if instructor_name:
                 professor_ref = (db.collection('professors')
                     .where(filter=FieldFilter('name', '==', instructor_name))
                     .limit(1))

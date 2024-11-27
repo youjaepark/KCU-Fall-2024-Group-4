@@ -1,147 +1,160 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap");
 * {
-    margin: 0; /* create distance between element and neighbor */
-    padding: 0; /* create space between content of element and its border */
-    font-family: 'Roboto', sans-serif; /* default font to Roboto */
+  margin: 0; /* create distance between element and neighbor */
+  padding: 0; /* create space between content of element and its border */
+  font-family: "Roboto", sans-serif; /* default font to Roboto */
 }
 
 .header {
-    background-color: #C0392B; /* sets red background color for header */
-    color: white; /* sets text color inside header to white */
-    padding: 5px; /* Adds space inside the header around its content */
-    text-align: left; /* Aligns header content to left */
-    position: sticky; /* Keeps the header at top of the page when scrolling */
-    top: 0; /* Positions sticky header 0 pixels from the top */
-    z-index: 1000; /* Ensures header stays on top of other elements */
-    display: flex; /* Applies flex layout to align its children horizontally */
-    align-items: center; /*  Vertically centers items inside the header */
-    width: 100%; /* makes the header span the full width of the page */
-    box-sizing: border-box; /* Includes padding in the element's width */
+  background-color: #c0392b; /* sets red background color for header */
+  color: white; /* sets text color inside header to white */
+  padding: 5px; /* Adds space inside the header around its content */
+  text-align: left; /* Aligns header content to left */
+  position: sticky; /* Keeps the header at top of the page when scrolling */
+  top: 0; /* Positions sticky header 0 pixels from the top */
+  z-index: 1000; /* Ensures header stays on top of other elements */
+  display: flex; /* Applies flex layout to align its children horizontally */
+  align-items: center; /*  Vertically centers items inside the header */
+  width: 100%; /* makes the header span the full width of the page */
+  box-sizing: border-box; /* Includes padding in the element's width */
 }
 
 .icon {
-     width: 70px;
-     height: auto;
+  width: 70px;
+  height: auto;
 }
 
 .header h1 {
-    margin: 0;
-    font-size: 2.2em;
-    font-weight: bolder;
-    margin-left: 15px;
+  margin: 0;
+  font-size: 2.2em;
+  font-weight: bolder;
+  margin-left: 15px;
 }
 
 body {
-    display: flex;
-    flex-direction: column; /* Stack items vertically (header at the top, then content) */
-    align-items: center;
-    min-height: 100vh;
-    margin: 0;
+  display: flex;
+  flex-direction: column; /* Stack items vertically (header at the top, then content) */
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
 }
 
 .percent {
-    position: relative;
-    width: 150px;
-    height: 150px;
-    margin: 20px auto;
+  position: relative;
+  width: 150px;
+  height: 150px;
+  margin: 20px auto;
 }
 
 .percent svg {
-    position: relative;
-    width: 150px;
-    height: 150px;
+  position: relative;
+  width: 150px;
+  height: 150px;
 }
 
 .percent svg circle {
-    width: 150px;
-    height: 150px;
-    fill: none;
-    stroke-width: 10;
-    stroke: #000;
-    transform: translate(5px, 5px);
-    stroke-dasharray: 440;
-    stroke-dashoffset: 440;
-    stroke-linecap: round;
+  width: 150px;
+  height: 150px;
+  fill: none;
+  stroke-width: 10;
+  stroke: #000;
+  transform: translate(5px, 5px);
+  stroke-dasharray: 440;
+  stroke-dashoffset: 440;
+  stroke-linecap: round;
 }
 
 .percent svg circle:nth-child(1) {
-    stroke-dashoffset: 0;
-    stroke: #f3f3f3;
+  stroke-dashoffset: 0;
+  stroke: #f3f3f3;
 }
 
 .percent svg circle:nth-child(2) {
-    stroke: #C0392B;
+  stroke: #c0392b;
+  /* transition: stroke-dashoffset 1s linear; */
+  transform-origin: center;
+  transform: rotate(-90deg) translate(5px, 5px);
 }
 
 .percent .number {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #999;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #999;
 }
 
 .percent .number h2 {
-    font-size: 48px;
+  font-size: 48px;
 }
 
 #percentSign {
-    font-size: 24px;
+  font-size: 24px;
 }
 
 .scorePercentageText {
-    padding: 10px 0 0;
-    color: #999;
-    font-weight: 700;
+  padding: 10px 0 0;
+  color: #999;
+  font-weight: 700;
 }
 
-.score-result, .statistics {
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    text-align: center;
+.score-result,
+.statistics {
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
 
 .scores p {
-    margin: 10px 0;
-    font-size: 1.5em;
-    line-height: 1.5;
+  margin: 10px 0;
+  font-size: 1.5em;
+  line-height: 1.5;
 }
 
-.bold-label{
-    font-weight: bold;
+.bold-label {
+  font-weight: bold;
 }
 
 #comment {
-    color: #999;
+  color: #999;
 }
 
 .table-container {
-    margin-top: 15px;
+  margin-top: 15px;
 }
 
 table {
-    width: 100%;
-    border-collapse: collapse;
+  width: 100%;
+  border-collapse: collapse;
 }
 
-th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: center;
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
 }
 
 th {
-    background-color: #f4f4f4;
+  background-color: #f4f4f4;
 }
 
 .icon {
-    width: 70px; /* Adjust icon size as needed */
-    height: auto; /* Maintain aspect ratio */
+  width: 70px; /* Adjust icon size as needed */
+  height: auto; /* Maintain aspect ratio */
+}
+
+/* Update the scores animation */
+.scores p span:not(.bold-label) {
+  display: inline-block;
+  opacity: 1;
+  transform: translateY(0);
+  animation: none;
 }

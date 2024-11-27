@@ -207,25 +207,50 @@ function updateScores(
   const instructorScoreVal = document.getElementById("instructorScore");
   const scheduleBalanceVal = document.getElementById("scheduleBalance");
   const commentPar = document.getElementById("commentParagraph");
+  const circle = document.querySelector(".percent svg circle:nth-child(2)");
 
+  // Clear existing values
   scorePercentVal.innerHTML = "";
   courseScoreVal.innerHTML = "";
   instructorScoreVal.innerHTML = "";
   scheduleBalanceVal.innerHTML = "";
   commentPar.innerHTML = "";
 
-  scorePercentVal.textContent = newScorePercent;
-  courseScoreVal.textContent = newCourseScore;
-  instructorScoreVal.textContent = newInstructorScore;
-  scheduleBalanceVal.textContent = newScheduleBalance;
-  commentPar.textContent = newComment;
+  // Animation setup
+  const duration = 500; // 0.5 second duration for both animations
+  const startTime = performance.now();
+  const initialOffset = 440; // Initial stroke-dashoffset value
 
-  const circle = document.querySelector(".percent svg circle:nth-child(2)");
-  const newDashOffset = 440 - (440 * newScorePercent) / 100;
+  function animateScore(currentTime) {
+    const elapsed = currentTime - startTime;
+    const progress = Math.min(elapsed / duration, 1);
 
-  circle.style.strokeDashoffset = newDashOffset;
+    // Calculate current values using linear progress
+    const currentOverallScore = Math.round(progress * newScorePercent);
+    const currentCourseScore = Math.round(progress * newCourseScore);
+    const currentInstructorScore = Math.round(progress * newInstructorScore);
+    const currentScheduleBalance = Math.round(progress * newScheduleBalance);
+
+    // Update score values
+    scorePercentVal.textContent = currentOverallScore;
+    courseScoreVal.textContent = currentCourseScore;
+    instructorScoreVal.textContent = currentInstructorScore;
+    scheduleBalanceVal.textContent = currentScheduleBalance;
+
+    // Update circle animation
+    const newDashOffset =
+      initialOffset - (initialOffset * progress * newScorePercent) / 100;
+    circle.style.strokeDashoffset = newDashOffset;
+
+    if (progress < 1) {
+      requestAnimationFrame(animateScore);
+    } else {
+      // Set final values to ensure accuracy
+      commentPar.textContent = newComment;
+    }
+  }
+  requestAnimationFrame(animateScore);
 }
-
 // Formats the table data for the table
 function formatTable(tableData) {
   const tableContent = [];
