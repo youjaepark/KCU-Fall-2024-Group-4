@@ -129,34 +129,42 @@ async function fetchSchedule() {
       throw new Error("No active tab found");
     }
 
-    const apiURL = "http://127.0.0.1:5000/returnrating"; // API URL
+    const apiURL = "https://ratemyscheduleapi.vercel.app/returnrating";
     const result = await chrome.scripting.executeScript({
       target: { tabId: tab.id },
       func: readCourseSchedule,
     });
 
-    // Extract schedule data from the result array
+    // Add detailed logging
     const scheduleData = result[0].result;
-    console.log("Schedule data:", scheduleData);
+    console.log(
+      "Sending schedule data to API:",
+      JSON.stringify(scheduleData, null, 2)
+    );
 
     const response = await fetch(apiURL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(scheduleData), // Send the schedule data directly
+      body: JSON.stringify(scheduleData),
     });
 
     if (!response.ok) {
-      throw new Error(`API request failed: ${response.status}`);
+      // Add more detailed error information
+      const errorText = await response.text();
+      throw new Error(
+        `API request failed: ${response.status}\nResponse: ${errorText}`
+      );
     }
 
     const data = await response.json();
     return data;
   } catch (error) {
+    console.error("Full error details:", error);
     throw new Error(`Failed to fetch schedule: ${error.message}`);
   }
 }
 async function fetchScoreAPI(completeSchedule) {
-  const apiURL = "http://127.0.0.1:5000/evaluate";
+  const apiURL = "https://ratemyscheduleapi.vercel.app/evaluate";
   try {
     console.log("Calling API...");
 
@@ -217,19 +225,31 @@ function updateScores(
   commentPar.innerHTML = "";
 
   // Animation setup
-  const duration = 500; // 0.5 second duration for both animations
+  const duration = 500; // 0.5 second duration
   const startTime = performance.now();
-  const initialOffset = 440; // Initial stroke-dashoffset value
+  const circumference = 2 * Math.PI * 85; // 2πr where r=85
+
+  // Pre-calculate the final circle offset
+  const finalOffset = circumference * (1 - newScorePercent / 100);
+  const initialOffset = circumference;
+  const totalOffsetChange = initialOffset - finalOffset;
 
   function animateScore(currentTime) {
     const elapsed = currentTime - startTime;
     const progress = Math.min(elapsed / duration, 1);
 
-    // Calculate current values using linear progress
-    const currentOverallScore = Math.round(progress * newScorePercent);
-    const currentCourseScore = Math.round(progress * newCourseScore);
-    const currentInstructorScore = Math.round(progress * newInstructorScore);
-    const currentScheduleBalance = Math.round(progress * newScheduleBalance);
+    // Use easeOutQuad easing function for smoother animation
+    const easeProgress = 1 - (1 - progress) * (1 - progress);
+
+    // Calculate current values using eased progress
+    const currentOverallScore = Math.round(easeProgress * newScorePercent);
+    const currentCourseScore = Math.round(easeProgress * newCourseScore);
+    const currentInstructorScore = Math.round(
+      easeProgress * newInstructorScore
+    );
+    const currentScheduleBalance = Math.round(
+      easeProgress * newScheduleBalance
+    );
 
     // Update score values
     scorePercentVal.textContent = currentOverallScore;
@@ -237,18 +257,23 @@ function updateScores(
     instructorScoreVal.textContent = currentInstructorScore;
     scheduleBalanceVal.textContent = currentScheduleBalance;
 
-    // Update circle animation
-    const newDashOffset =
-      initialOffset - (initialOffset * progress * newScorePercent) / 100;
-    circle.style.strokeDashoffset = newDashOffset;
+    // Update circle animation using the same eased progress
+    const currentOffset = initialOffset - totalOffsetChange * easeProgress;
+    circle.style.strokeDasharray = `${circumference}`;
+    circle.style.strokeDashoffset = currentOffset;
 
     if (progress < 1) {
       requestAnimationFrame(animateScore);
     } else {
-      // Set final values to ensure accuracy
+      // Set final values
       commentPar.textContent = newComment;
     }
   }
+
+  // Initialize circle properties
+  circle.style.strokeDasharray = `${circumference}`;
+  circle.style.strokeDashoffset = circumference;
+
   requestAnimationFrame(animateScore);
 }
 // Formats the table data for the table

@@ -8,8 +8,6 @@ from pymongo import MongoClient
 from datetime import datetime
 import os
 from dotenv import load_dotenv
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
 import certifi
 # Firebase
 import firebase_admin
@@ -46,7 +44,19 @@ def format_input(course_name, instructor_name):
 
 def add_rating(schedule_json):
     if not firebase_admin._apps:
-        cred = credentials.Certificate("ratemyschedule-c9fab-firebase-adminsdk-v1sj7-2fcb3a43cf.json")
+        cred = credentials.Certificate({
+            "type": os.getenv('FIREBASE_TYPE'),
+            "project_id": os.getenv('FIREBASE_PROJECT_ID'),
+            "private_key_id": os.getenv('FIREBASE_PRIVATE_KEY_ID'),
+            "private_key": os.getenv('FIREBASE_PRIVATE_KEY').replace(r'\n', '\n'),
+            "client_email": os.getenv('FIREBASE_CLIENT_EMAIL'),
+            "client_id": os.getenv('FIREBASE_CLIENT_ID'), 
+            "auth_uri": os.getenv('FIREBASE_AUTH_URI'),
+            "token_uri": os.getenv('FIREBASE_TOKEN_URI'),
+            "auth_provider_x509_cert_url": os.getenv('FIREBASE_AUTH_PROVIDER_CERT_URL'),
+            "client_x509_cert_url": os.getenv('FIREBASE_CLIENT_CERT_URL'),
+            "universe_domain": os.getenv('FIREBASE_UNIVERSE_DOMAIN')
+        })
         firebase_admin.initialize_app(cred)
     db = firestore.client()
     
@@ -133,38 +143,12 @@ def analyze_schedule(schedule_json):
     }
     schedules_collection.insert_one(schedule_doc)
 
-    # Get similar schedules
-    all_schedules = list(schedules_collection.find())
-    
-    if not all_schedules:
-        similar_schedules = []
-    else:
-        vectorizer = TfidfVectorizer()
-        schedule_texts = [json.dumps(s['schedule']) for s in all_schedules] + [json.dumps(schedule)]
-        tfidf_matrix = vectorizer.fit_transform(schedule_texts)
-        
-        cosine_similarities = cosine_similarity(tfidf_matrix[-1], tfidf_matrix[:-1]).flatten()
-        similar_indices = cosine_similarities.argsort()[:-6:-1]
-        
-        similar_schedules = [all_schedules[i] for i in similar_indices]
-
-    # Get ratings for similar schedules
-    similar_results = [results_collection.find_one({'_id': s['_id']}) for s in similar_schedules]
-    
-    context = "\n".join([
-        f"Similar schedule: {json.dumps(s['schedule'])}\nRating: {json.dumps(r['result'])}"
-        for s, r in zip(similar_schedules, similar_results) if r
-    ])
-
     prompt = f"""
     You are an expert academic advisor specializing in analyzing college course schedules.
     
     Analyze this schedule:
     {schedule_json}
     
-    Previous similar schedules and ratings for reference:
-    {context}
-
     Evaluation Criteria:
     1. Course Load (0-10):
        - Base rating on cumulative GPA data
@@ -258,4 +242,4 @@ def return_rating():
         return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()

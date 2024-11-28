@@ -1,22 +1,22 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap");
 * {
-  margin: 0; /* create distance between element and neighbor */
-  padding: 0; /* create space between content of element and its border */
-  font-family: "Roboto", sans-serif; /* default font to Roboto */
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
+  box-sizing: border-box;
+}
+
+:root {
+  --badger-red: #c5050c;
+  --dark-red: #9b0000;
+  --text-dark-gray: #333333;
+  --light-gray: #f7f7f7;
+  --link-blue: #0479a8;
+  --white: #ffffff;
 }
 
 .header {
-  background-color: #c0392b; /* sets red background color for header */
-  color: white; /* sets text color inside header to white */
-  padding: 5px; /* Adds space inside the header around its content */
-  text-align: left; /* Aligns header content to left */
-  position: sticky; /* Keeps the header at top of the page when scrolling */
-  top: 0; /* Positions sticky header 0 pixels from the top */
-  z-index: 1000; /* Ensures header stays on top of other elements */
-  display: flex; /* Applies flex layout to align its children horizontally */
-  align-items: center; /*  Vertically centers items inside the header */
-  width: 100%; /* makes the header span the full width of the page */
-  box-sizing: border-box; /* Includes padding in the element's width */
+  display: none;
 }
 
 .icon {
@@ -33,35 +33,39 @@
 
 body {
   display: flex;
-  flex-direction: column; /* Stack items vertically (header at the top, then content) */
+  flex-direction: column;
   align-items: center;
   min-height: 100vh;
   margin: 0;
+  /* padding-top: 20px; */
+  font-family: "Roboto", sans-serif;
+  padding: 20px;
 }
 
 .percent {
   position: relative;
-  width: 150px;
-  height: 150px;
-  margin: 20px auto;
+  width: 200px;
+  height: 200px;
 }
 
 .percent svg {
   position: relative;
-  width: 150px;
-  height: 150px;
+  width: 200px;
+  height: 200px;
+  transform: rotate(0deg);
 }
 
 .percent svg circle {
-  width: 150px;
-  height: 150px;
   fill: none;
   stroke-width: 10;
-  stroke: #000;
-  transform: translate(5px, 5px);
-  stroke-dasharray: 440;
-  stroke-dashoffset: 440;
   stroke-linecap: round;
+  cx: 100;
+  cy: 100;
+  r: 85;
+  stroke-dasharray: 534;
+  stroke-dashoffset: 534;
+  transform: rotate(-90deg);
+  transform-origin: center;
 }
 
 .percent svg circle:nth-child(1) {
@@ -70,64 +74,170 @@ body {
 }
 
 .percent svg circle:nth-child(2) {
-  stroke: #c0392b;
-  /* transition: stroke-dashoffset 1s linear; */
-  transform-origin: center;
-  transform: rotate(-90deg) translate(5px, 5px);
+  stroke: var(--badger-red);
+  transition: stroke-dashoffset 0.5s linear;
 }
 
 .percent .number {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #999;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .percent .number h2 {
-  font-size: 48px;
+  font-size: 42px;
+  font-weight: 700;
+  color: var(--text-dark-gray);
 }
 
 #percentSign {
-  font-size: 24px;
+  font-size: 20px;
+  color: var(--text-dark-gray);
 }
 
 .scorePercentageText {
-  padding: 10px 0 0;
-  color: #999;
-  font-weight: 700;
+  margin-top: 15px;
+  text-align: center;
+  color: var(--text-dark-gray);
+  font-weight: 500;
+  font-size: 1.2em;
 }
 
-.score-result,
-.statistics {
-  margin-bottom: 20px;
-  border: 1px solid #ddd;
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+.score-result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 10px auto;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  width: 100%;
+}
+
+.scores {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin: 25px 0;
+  padding: 0;
+}
+
+.score-card {
+  flex: 1;
+  min-width: 0;
+  background: var(--white);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  transition: transform 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.score-card:hover {
+  transform: translateY(-2px);
+}
+
+.score-icon {
+  font-size: 24px;
+  margin-bottom: 10px;
+  display: block;
   text-align: center;
 }
 
-.scores p {
-  margin: 10px 0;
-  font-size: 1.5em;
-  line-height: 1.5;
+.score-card p {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  width: 100%;
 }
 
 .bold-label {
-  font-weight: bold;
+  font-size: 0.85em;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-dark-gray);
+  font-weight: 500;
+}
+
+.score-value {
+  font-size: 1.8em;
+  font-weight: 700;
+  color: var(--text-dark-gray);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  cursor: help;
+  font-size: 0.8em;
+}
+
+.tooltip-popup {
+  visibility: hidden;
+  position: absolute;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: black;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: 9999;
+}
+
+.tooltip-popup::after {
+  content: "";
+  position: absolute;
+  top: 100%; /* At the bottom of the tooltip */
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
+}
+
+.tooltip:hover .tooltip-popup {
+  visibility: visible;
+  opacity: 1;
 }
 
 #comment {
-  color: #999;
+  background: var(--light-gray);
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 10px;
+  line-height: 1.8;
+  position: relative;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .table-container {
   margin-top: 15px;
+  max-height: calc(100vh - 500px);
+  overflow-y: auto;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  max-width: 800px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 table {
@@ -135,20 +245,56 @@ table {
   border-collapse: collapse;
 }
 
-th,
-td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: center;
+th {
+  background-color: var(--badger-red);
+  color: var(--white);
+  font-weight: 500;
+  padding: 15px 20px;
+  text-transform: uppercase;
+  font-size: 0.9em;
+  letter-spacing: 0.5px;
 }
 
-th {
-  background-color: #f4f4f4;
+td {
+  padding: 15px 20px;
+  border-bottom: 1px solid var(--light-gray);
+  transition: background-color 0.2s;
+}
+
+tr:hover td {
+  background-color: var(--light-gray);
+}
+
+td a {
+  color: var(--link-blue);
+  text-decoration: none;
+  position: relative;
+  transition: color 0.2s;
+}
+
+td a:hover {
+  color: var(--badger-red);
+}
+
+td a::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transition: transform 0.2s;
+}
+
+td a:hover::after {
+  transform: scaleX(1);
 }
 
 .icon {
-  width: 70px; /* Adjust icon size as needed */
-  height: auto; /* Maintain aspect ratio */
+  width: 70px;
+  height: auto;
 }
 
 /* Update the scores animation */
@@ -157,4 +303,76 @@ th {
   opacity: 1;
   transform: translateY(0);
   animation: none;
+}
+
+.loading-screen {
+  background-color: var(--white);
+  position: fixed;
+  z-index: 1000;
+}
+
+.loading-spinner {
+  border-width: 4px;
+  width: 50px;
+  height: 50px;
+  border-color: var(--light-gray);
+  border-top-color: var(--badger-red);
+}
+
+.loading-message {
+  margin-top: 25px;
+  font-size: 1.1em;
+  color: var(--text-dark-gray);
+  font-weight: 500;
+}
+
+.button {
+  background-color: var(--badger-red);
+  color: var(--white);
+}
+
+.button:hover {
+  background-color: var(--dark-red);
+}
+
+tbody tr:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+td,
+th {
+  text-align: left;
+  padding: 12px;
+}
+
+td:nth-child(1),
+th:nth-child(1) {
+  width: 50%;
+  text-align: left;
+}
+
+td:nth-child(2),
+th:nth-child(2),
+td:nth-child(3),
+th:nth-child(3) {
+  width: 25%;
+  text-align: center;
+}
+
+td:nth-child(2),
+td:nth-child(3) {
+  text-align: center;
+}
+
+.score-circle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 20px 0;
 }

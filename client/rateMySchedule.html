@@ -54,19 +54,14 @@
     </div>
 
     <div id="mainContent" class="hidden">
-      <div class="header">
-        <img src="icon.png" alt="Rate My Schedule Icon" class="icon" />
-        <h1>Rate My Schedule</h1>
-      </div>
-
       <div class="content">
         <!--Upper Section-->
         <div class="score-result">
           <div class="score-circle">
             <div class="percent">
               <svg>
-                <circle cx="70" cy="70" r="70"></circle>
-                <circle cx="70" cy="70" r="70"></circle>
+                <circle cx="100" cy="100" r="85"></circle>
+                <circle cx="100" cy="100" r="85"></circle>
               </svg>
               <div class="number">
                 <h2>
@@ -74,24 +69,53 @@
                 </h2>
               </div>
             </div>
-            <h2 class="scorePercentageText">Score Percentage</h2>
+            <h2 class="scorePercentageText">Schedule Rating</h2>
           </div>
           <div class="scores">
-            <p>
-              <span class="bold-label">Course Score:</span>
-              <span id="courseScore"></span>
-            </p>
-            <p>
-              <span class="bold-label">Instructor Score:</span>
-              <span id="instructorScore"></span>
-            </p>
-            <p>
-              <span class="bold-label">Schedule Balance:</span>
-              <span id="scheduleBalance"></span>
-            </p>
+            <div class="score-card">
+              <span class="score-icon">📚</span>
+              <p>
+                <span class="bold-label">Course Score</span>
+                <span id="courseScore" class="score-value"></span>
+                <span class="tooltip">
+                  ⓘ
+                  <div class="tooltip-popup">
+                    AI rating based on cumulative GPA of the courses in your
+                    schedule in Madgrades
+                  </div>
+                </span>
+              </p>
+            </div>
+            <div class="score-card">
+              <span class="score-icon">👨‍🏫</span>
+              <p>
+                <span class="bold-label">Instructor Score</span>
+                <span id="instructorScore" class="score-value"></span>
+                <span class="tooltip">
+                  ⓘ
+                  <div class="tooltip-popup">
+                    AI rating based on professor ratings in RateMyProfessors
+                  </div>
+                </span>
+              </p>
+            </div>
+            <div class="score-card">
+              <span class="score-icon">🕒</span>
+              <p>
+                <span class="bold-label">Schedule Balance</span>
+                <span id="scheduleBalance" class="score-value"></span>
+                <span class="tooltip">
+                  ⓘ
+                  <div class="tooltip-popup">
+                    AI rating of how well distributed your classes are
+                    throughout the week
+                  </div>
+                </span>
+              </p>
+            </div>
           </div>
           <p id="comment">
-            <span class="bold-label">Comment:</span>
+            <span class="bold-label">AI Comment:</span>
             <span id="commentParagraph">No comment available.</span>
           </p>
         </div>
