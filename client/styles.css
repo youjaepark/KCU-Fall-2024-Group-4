@@ -59,9 +59,6 @@ body {
   fill: none;
   stroke-width: 10;
   stroke-linecap: round;
-  cx: 100;
-  cy: 100;
-  r: 85;
   stroke-dasharray: 534;
   stroke-dashoffset: 534;
   transform: rotate(-90deg);
@@ -109,7 +106,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 10px auto;
+  margin-bottom: 10px;
   padding: 30px;
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -179,49 +176,10 @@ body {
   gap: 5px;
 }
 
-.tooltip {
-  position: relative;
-  display: inline-block;
-  cursor: help;
-  font-size: 0.8em;
-}
-
-.tooltip-popup {
-  visibility: hidden;
-  position: absolute;
-  bottom: 125%;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: black;
-  color: white;
-  padding: 5px 10px;
-  border-radius: 4px;
-  opacity: 0;
-  transition: opacity 0.3s;
-  z-index: 9999;
-}
-
-.tooltip-popup::after {
-  content: "";
-  position: absolute;
-  top: 100%; /* At the bottom of the tooltip */
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: black transparent transparent transparent;
-}
-
-.tooltip:hover .tooltip-popup {
-  visibility: visible;
-  opacity: 1;
-}
-
 #comment {
   background: var(--light-gray);
   padding: 20px;
   border-radius: 8px;
-  margin-top: 10px;
   line-height: 1.8;
   position: relative;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -309,6 +267,14 @@ td a:hover::after {
   background-color: var(--white);
   position: fixed;
   z-index: 1000;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .loading-spinner {
@@ -374,5 +340,4 @@ td:nth-child(3) {
   align-items: center;
   justify-content: center;
   width: 100%;
-  margin: 20px 0;
 }
