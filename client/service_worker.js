@@ -1,5 +1,9 @@
 const GOOGLE_ORIGIN = "https://enroll.wisc.edu/scheduler";
 
+chrome.sidePanel
+  .setPanelBehavior({ openPanelOnActionClick: true })
+  .catch((error) => console.error(error));
+
 chrome.tabs.onUpdated.addListener(async (tabId, info, tab) => {
   if (!tab.url) return;
   const url = new URL(tab.url);

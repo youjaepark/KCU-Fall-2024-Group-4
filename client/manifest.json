@@ -10,6 +10,9 @@
   },
   "permissions": ["sidePanel", "tabs", "activeTab", "scripting", "offscreen"],
   "host_permissions": ["https://*.wisc.edu/*"],
+  "background": {
+    "service_worker": "service_worker.js"
+  },
   "side_panel": {
     "default_path": "rateMySchedule.html"
   },
