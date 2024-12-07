@@ -4,8 +4,6 @@ import json
 from flask_cors import CORS
 # AI
 import openai
-from pymongo import MongoClient
-from datetime import datetime
 import os
 from dotenv import load_dotenv
 import certifi
@@ -129,70 +127,74 @@ def analyze_schedule(schedule_json):
     load_dotenv()
     openai.api_key = os.getenv('OPENAI_API_KEY')
 
-    # Initialize MongoDB client
-    client = MongoClient(os.getenv('MONGODB_URI'), tlsCAFile=certifi.where())
-    db = client['schedule_database']
-    schedules_collection = db['schedules']
-    results_collection = db['results']
-
-    # Store schedule
-    schedule = json.loads(schedule_json)
-    schedule_doc = {
-        'schedule': schedule,
-        'timestamp': datetime.now()
-    }
-    schedules_collection.insert_one(schedule_doc)
-
     prompt = f"""
-    You are an expert academic advisor specializing in analyzing college course schedules.
-    
-    Analyze this schedule:
-    {schedule_json}
-    
-    Evaluation Criteria:
-    1. Course Load (0-10):
-       - Base rating on cumulative GPA data
-       - GPA conversion: 4.0 = 10.0, 3.0 = 7.5, 2.0 = 5.0
-       - For N/A values, use 3.67 GPA (7.34 rating)
-       - Consider total credit hours and course level distribution
-    
-    2. Instructor Quality (0-10):
-       - Convert RateMyProfessor scores: multiply by 2 (5.0 → 10.0)
-       - For N/A ratings, use 3.52 rating as baseline
-       - Weight by course credits
-    
-    3. Schedule Balance (0-10):
-       Time Distribution (4 points):
-       - Adequate breaks between classes
-       - Even spread across week
-       - No back-to-back 3+ hour blocks
-       
-       Workload Balance (3 points):
-       - Credit hours per day
-       - Difficulty level distribution
-       
-       Logistics (3 points):
-       - Campus travel time
-       - Meal break opportunities
-       - Study time blocks
+You are an expert academic advisor specializing in analyzing college course schedules. You have access to a JSON object containing the schedule and its associated data.
 
-    4. Please provide only the JSON output without any additional text, using the following format:
-    {{
-        "course": float,
-        "instructor": float,
-        "schedule balance": float,
-        "overall": float,
-        "comment": string
-    }}
+Your objective is to produce a reliable and data-driven evaluation of the schedule based on the criteria below. Carefully follow each step and perform all necessary calculations to ensure accuracy. If any data needed for calculations is missing (N/A), use the specified baseline values. After your analysis, provide only the final JSON output without any additional explanation, text, or formatting beyond the specified JSON structure.
 
-    Example Output:
-    {{
-        "course": 7.5,
-        "instructor": 8.0,
-        "schedule balance": 6.5,
-        "overall": 7.3,
-        "comment": "The schedule offers a balanced workload with highly rated instructors..."
-    }}
+Input:
+{schedule_json}
+
+Evaluation Criteria:
+
+1. Course Load (0-10):
+   - Determine a weighted rating based on historical GPA data for the courses.
+   - GPA-to-rating conversion:
+       4.0 GPA = 10.0 rating
+       3.0 GPA = 7.5 rating
+       2.0 GPA = 5.0 rating
+   - For N/A GPA values, assume a GPA of 3.67 (which corresponds to a rating of 7.34).
+   - Consider the total credit hours and the course level distribution when finalizing the Course Load rating.
+     (Higher-level courses or a heavier credit load may slightly reduce the final rating if the difficulty is presumed higher.)
+
+2. Instructor Quality (0-10):
+   - Convert instructor ratings from RateMyProfessor by multiplying their rating by 2.
+     Example: A 5.0 (out of 5) → 10.0 (out of 10).
+   - For N/A or missing instructor ratings, use a baseline rating of 3.52 (which corresponds to 7.04 after multiplying by 2).
+   - Weight these ratings proportionally by each course’s credit hours.
+
+3. Schedule Balance (0-10):
+   Break down into three subcategories and sum their points:
+   - Time Distribution (0-6 points):
+     * Are classes reasonably spaced out throughout the week?
+     * Are there adequate breaks between classes?
+     * Avoidance of excessively long back-to-back sessions (e.g., no 3+ hour back-to-back blocks).
+   - Workload Balance (0-4 points):
+     * Consider how credit hours are distributed across days.
+     * Consider the difficulty levels and ensure no single day is overloaded.
+   
+   Assign points for each category based on how well the criteria are met, then sum them up for a final Schedule Balance rating.
+
+4. Overall Rating:
+   - The overall rating should be an approximate weighted average or balanced blend of the three criteria (Course Load, Instructor Quality, and Schedule Balance).
+   - This can be a simple average unless you have reason to adjust weights due to special conditions (e.g., extremely skewed instructor ratings or extremely imbalanced schedules).
+
+5. Comment:
+   - Provide a brief comment summarizing the schedule’s strengths and weaknesses.
+   - Keep it constructive, honest, and helpful.
+
+Required Output Format:
+Return only a single JSON object with the following keys and values:
+{{
+    "course": float,
+    "instructor": float,
+    "schedule balance": float,
+    "overall": float,
+    "comment": string
+}}
+
+Example Output:
+{{
+    "course": 8.5,
+    "instructor": 9.0,
+    "schedule balance": 8.0,
+    "overall": 8.5,
+    "comment": "The schedule offers a balanced workload with highly rated instructors..."
+}}
+
+Remember:
+- Do not include any additional text or commentary outside the JSON.
+- Be as accurate and data-driven as possible.
     """
     client = openai.OpenAI()
     response = client.chat.completions.create(
@@ -205,13 +207,6 @@ def analyze_schedule(schedule_json):
     
     result_content = response.choices[0].message.content
     result_json = json.loads(result_content)
-    
-    # Store result
-    result_doc = {
-        'result': result_json,
-        'timestamp': datetime.now()
-    }
-    results_collection.insert_one(result_doc)
     
     return result_json
 
